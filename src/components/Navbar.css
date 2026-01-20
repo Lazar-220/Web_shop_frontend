@@ -3,7 +3,16 @@
 
 /* kožna / bež */
 .navbar {
-  background-color: rgb(177, 137, 145); 
+  /* background-color: rgb(177, 137, 145);  */
+  /* background-color: rgb(251, 233, 229); */
+  /* background-color: rgb(255, 243, 240); */
+  background-color: rgb(255, 247, 246);
+  /* z-index: 1000; */
+  box-shadow:
+    0 6px 10px rgba(0, 0, 0, 0.087);
+    /* 0 10px 20px rgba(0, 0, 0, 0.082); */
+
+  /* transition: box-shadow 0.3s ease; */
 }
 
 
@@ -46,6 +55,7 @@
   outline: none;
   box-shadow: none !important;
   color: #41161f;
+  /* color: #5a1f2b; */
 }
 
 .navbar-toggler{
@@ -126,7 +136,8 @@
 
 
 .header{
-  background: #41161f;
+  /* background: #41161f; */
+  background: #5a1f2b;
   color: rgb(225, 213, 216); 
   font-size: 90%;
 }
@@ -134,4 +145,9 @@
 .header .header-link:hover{
   color: #e3c725;
 }
+
+
+
+
+
 

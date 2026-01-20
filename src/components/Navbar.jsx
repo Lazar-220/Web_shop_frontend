@@ -6,26 +6,27 @@ import { FiShoppingBag } from "react-icons/fi";
 
 
 import { FaBars, FaTimes } from "react-icons/fa";
-import React, { useState } from 'react';
+import React, { useState } from 'react';            //useState cuva stanje komponente
 
 import { PiTruckLight } from "react-icons/pi";
-
+import { HashLink } from 'react-router-hash-link';
+//Svaki put kad se state promeni → komponenta se ponovo renderuje
 const Navbar = () => {                           //treba jos dodati kad se doda slika u korpu da se pojavi kruzic na korpi sa brojem artikala i hover da kad se predje kursorom da iskoci prozor sa ariklima 
                                                 //i treba dodati efekat spustanja kad se klikne burger meni
   const cartCount = 1;   //dodaj useState(0) za broj slika u korpi i povezi sa dugmicima dodaj u korpu
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); //hook, kada zelimo da element isOpen nesto pamti (false/true stanje), preko fje setIsOpen menjamo vrednost is useState-a (false->true ili true->false)
 
   return (
 
     <>
     <div className="py-3 header">
       <div className="container-fluid">
-        {/* flex-nowrap sprečava da se desni deo ikada spusti ispod levog */}
+        {/* flex-nowrap sprečava, po svaku cenu, da se elementi iz flexboxa prelamaju tj. da neki od njih predje u donji red cak iako se ekran dosta suzi */}
         <div className="d-flex align-items-center justify-content-between flex-nowrap">
           
           {/* LEVA STRANA: Zauzima sav preostali prostor i dopušta prelamanje teksta */}
-          <div className="d-flex align-items-center">
-            <PiTruckLight size={20} className="ms-2 flex-shrink-0 align-items-center" />
+          <div className="d-flex align-items-center me-3">
+            <PiTruckLight size={20} className="ms-2 flex-shrink-0 align-items-center" /> {/* flex-shrink-0 znaci bez obzira sto se ekran smanji ti ne smanjuj i ne menjaj ikonicu */}
             <span className="ms-2 text-wrap">
               Besplatna dostava na teritoriji Srbije
             </span>
@@ -42,41 +43,41 @@ const Navbar = () => {                           //treba jos dodati kad se doda 
       </div>
     </div>
 
-    <nav className="navbar navbar-expand-lg sticky-top custom-navbar">
+    <nav className="navbar navbar-expand-lg sticky-top custom-navbar">  {/* navbar-expand-lg sluzi da se na desktop ekranima ignorisu elementi sa collapse */}
       <div className="container-fluid">
         <div className="row w-100 align-items-center m-0">     {/* row je nabudzeni d-flex sa dodacima za grid */}
 
         {/* LEVA KOLONA (Zauzima 2/12 prostora - BALANS) */}
           <div className="col-2 d-flex align-items-center">
             <button
-              className="navbar-toggler border-0"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#mainNavbar"
-              aria-controls="mainNavbar"
-              aria-expanded={isOpen}
-              aria-label="Toggle navigation"
-              onClick={() => setIsOpen(!isOpen)}
+              className="navbar-toggler border-0"     // className="navbar-toggler" ide u paketu sa data-bs-toggle="collapse" 
+              type="button"                          // da zna da nije submit tj. da ne osvezava stranicu
+              data-bs-toggle="collapse"             //collapse znaci ovde da se odnosi na element koji je skriven do/od odredjenog trenutka
+              data-bs-target="#mainNavbar"          // data-bs-target="#mainNavbar" sluzi za povezivanje sa elementom preko njegovog id-ia jer je #->id a .->class 
+              aria-controls="mainNavbar"            // vise za seo...
+              aria-expanded={isOpen}                //dugme burger meni pomocu aria-expanded pamti trenutno stanje (od poslednjeg renderovanja)
+              aria-label="Toggle navigation"        //stoji sablonski jer dugme - burger meni, nema tekst
+              onClick={() => setIsOpen(!isOpen)}    //koristimo closure, arrow fju da bismo pomerili poziv fje setIsOpen za trenutak kada se klikne na burger meni
             >
               {isOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
             </button>
 
-            <Link className="navbar-brand d-none d-lg-block" to="/">
+            <HashLink className="navbar-brand d-none d-lg-block" smooth to='#top'> {/* d-none (generalno nevidljiv) d-lg-block (vidljiv samo na desktop racunarima na toj poziciji (skroz levo)) */}
             <span className="dany">Dany</span>
             <span className="art">Art</span>
-            </Link>
+            </HashLink>
           </div>
 
           {/* SREDNJA KOLONA (Zauzima 8/12 prostora - SAVRŠEN CENTAR) */}
           <div className="col-8 d-flex justify-content-center">
             {/* Logo za mobilni: Pojavljuje se u centru samo kad je ekran mali */}
-            <Link className="navbar-brand d-lg-none m-0" to="/">
+            <HashLink className="navbar-brand d-lg-none m-0" smooth to='#top'> {/*  (generalno je vidljiv) d-lg-none (nije vidljiv samo na desktop racunarima na toj poziciji (centrirano)) */}
             <span className="dany">Dany</span>
             <span className="art">Art</span>
-            </Link>
+            </HashLink>
 
             {/* Desktop Navigacija: Prikazuje se samo na velikim ekranima */}
-            <div className="collapse navbar-collapse d-none d-lg-block desk-nav">
+            <div className="collapse navbar-collapse d-none d-lg-block desk-nav"> {/* moze se obrisati ovde collapse navbar-collapse */} 
               <ul className="navbar-nav d-flex gap-5 mx-auto">
                 <li className="nav-item"><NavLink className="nav-link" to="/">Početna</NavLink></li>
                 <li className="nav-item"><NavLink className="nav-link" to="/galerija/">Galerija</NavLink></li>

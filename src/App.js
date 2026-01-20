@@ -3,6 +3,7 @@ import './App.css';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Pocetna from './components/Pocetna.jsx';
+import Footer from './components/Footer.jsx';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Pocetna/>} />
         </Routes>
+        <Footer/>
         
       
       </BrowserRouter>
