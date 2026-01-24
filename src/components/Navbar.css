@@ -142,8 +142,29 @@
   font-size: 90%;
 }
 
+.header .header-link{
+  
+  display: inline-block;
+  padding: 4px 7px;
+  border-radius: 8px;
+  border: 1px solid rgba(227, 198, 37, 0);
+}
+
+.header .reg{
+  border-radius: 8px;
+  border: 1px solid rgb(255, 255, 255);
+}
+
 .header .header-link:hover{
   color: #e3c725;
+  border-radius: 8px;
+  border: 1px solid rgb(227, 199, 37);
+}
+
+.header .reg:hover{
+  background-color: #c5a059; 
+  color: rgb(255, 255, 255);           
+  border-color: #c5a059;
 }
 
 
