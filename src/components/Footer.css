@@ -63,6 +63,7 @@
   width: 40px;            /* Širina kvadrata */
   height: 40px;           /* Visina kvadrata */
   border: 1px solid #e3c725; /* Tanka zlatna ivica (prilagodi boju svom logou) */
+  border-radius: 8px;
   color: #e3c725;         /* Boja same ikonice */
   display: flex;
   align-items: center;
@@ -125,6 +126,7 @@
   
   /* Stil kao tvoj Instagram kvadrat */
   border: 1px solid #e3c725;/* Zlatna boja tvojih ikonica */
+  border-radius: 8px;
   background-color: transparent;
   color: #e3c725;
   
