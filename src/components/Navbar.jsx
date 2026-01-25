@@ -1,5 +1,7 @@
 // import React from 'react'
-//DODAJ ZA LOGOUT DA SE OTVORI FORMA KOJA PROVERAVA DA LI JE KORISNIK SIGURAN
+
+
+//DODAJ DA SE NAVBAR TOGGLE ZATVORI (PODIGNE NAVIGACIONI MENI) SAM KAD SE KLIKNE NA NEKI NAVIGACIONI LINK
 import { Link, NavLink } from 'react-router-dom'
 import './Navbar.css';
 import { FiShoppingBag } from "react-icons/fi";
@@ -11,12 +13,12 @@ import React, { useEffect, useState } from 'react';            //useState cuva s
 
 import { PiTruckLight } from "react-icons/pi";
 import { HashLink } from 'react-router-hash-link';
-import api from '../api/Api';
+
 import LogoutModal from '../modals/LogoutModal';
 //Svaki put kad se state promeni → komponenta se ponovo renderuje
-const Navbar = ({ onLogin,onRegister,isAuth,onLogout }) => {                           //treba jos dodati kad se doda slika u korpu da se pojavi kruzic na korpi sa brojem artikala i hover da kad se predje kursorom da iskoci prozor sa ariklima 
+const Navbar = ({ onLogin,onRegister,isAuth,onLogout,cartCount }) => {                           //treba jos dodati kad se doda slika u korpu da se pojavi kruzic na korpi sa brojem artikala i hover da kad se predje kursorom da iskoci prozor sa ariklima 
                                                 //i treba dodati efekat spustanja kad se klikne burger meni
-  const cartCount = 1;   //dodaj useState(0) za broj slika u korpi i povezi sa dugmicima dodaj u korpu
+  //const cartCount = 1;   //dodaj useState(0) za broj slika u korpi i povezi sa dugmicima dodaj u korpu
   const [isOpen, setIsOpen] = useState(false); //hook, kada zelimo da element isOpen nesto pamti (false/true stanje), preko fje setIsOpen menjamo vrednost is useState-a (false->true ili true->false)
  
   

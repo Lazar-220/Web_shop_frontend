@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { FaTimes, FaEnvelope, FaLock, FaUser, FaEye } from "react-icons/fa";
 import api from "../api/Api";
-import LoginRegisterTextInput from "../components/LoginRegisterTextInput";
+import "./Modals.css";
+import TextInput from "../components/TextInput";
 //DODAJ VALIDACIJU ZA FORME (DA PASSWORD MORA IMATI 6 KARAKTERA, DA JE KORISNIK MOZDA POKUSAO DA SE REGISTRUJE SA MEJLOM KOJI VEC IMA NALOG I DA MU TADA IZADJE PORUKA: KORISNIK SA OVIM MEJLOM JE VEC REGISTROVAN, AKO NE MOZETE DA SE PRIJAVITE PROVERITE DA LI STE SE VERIFIKOVALI MEJL..., DA AKO NEKO HOCE DA SE PRIJAVI SA MEJLOM KOJI NIJE VERIFIKOVAN DA GA VERIFIKUJE PRVO)
 const RegisterModal = ({ show, onClose, onSwitch }) => {
 
@@ -22,7 +23,8 @@ const RegisterModal = ({ show, onClose, onSwitch }) => {
     setError("");
 
     try {
-      const result = await api.post('/register',{ime,prezime,email,password,password_confirmation});
+      
+      await api.post('/register',{ime,prezime,email,password,password_confirmation});
       
       setInfo("Uspešno ste se registrovali. Proverite email i verifikujte nalog.");
 
@@ -129,7 +131,7 @@ const RegisterModal = ({ show, onClose, onSwitch }) => {
         <form className="auth-body grid-form" onSubmit={handleSubmit}>
 
             {textInputs.map((input)=>(
-              <LoginRegisterTextInput
+              <TextInput
                 id={input.id}
                 type={input.type}
                 placeholder={input.placeholder}
@@ -144,7 +146,7 @@ const RegisterModal = ({ show, onClose, onSwitch }) => {
 
             
             
-            {/* <LoginRegisterTextInput
+            {/* <TextInput
             id="password"
             type="password"
             placeholder="•••••••"
@@ -155,7 +157,7 @@ const RegisterModal = ({ show, onClose, onSwitch }) => {
             icon={<FaLock />}
             label="Lozinka"
             /> */}
-            {/* LoginRegisterTextInput je reusable komponenta koju koristimo umesto zakomentarisanog koda */}
+            {/* TextInput je reusable komponenta koju koristimo umesto zakomentarisanog koda */}
             {/* <div className="form-group">
                 <label>Lozinka</label>
                 <div className="input-group">

@@ -328,8 +328,20 @@
 
 
 
+/* --- SEKCIJA NOVIH SLIKA (New Arrivals) --- */
+.latest-paintings-section {
+  background-color: #fcf8f5; /* Svetla bež pozadina sa slike */
+}
 
+.sub-title {
+  color: #d4af37; /* Zlatna boja za "New Arrivals" */
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+}
 
-
-
+.section-title {
+  color: #3e2723; /* Tamno braon */
+  font-family: serif; /* Serif font kao na slici */
+}
 
