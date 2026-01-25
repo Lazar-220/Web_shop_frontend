@@ -12,6 +12,8 @@ import RegisterModal from './modals/RegisterModal.jsx';
 import Galerija from './pages/Galerija.jsx';
 import O_nama from './pages/O_nama.jsx';
 import api from './api/Api.js';
+import Korpa from './pages/Korpa.jsx';
+import PlaceOrderModal from './modals/PlaceOrderModal.jsx';
 
 
 function App() {
@@ -55,6 +57,36 @@ function App() {
       }
     };
 
+
+  const [cartItems, setCartItems] = useState([]);
+
+  // Funkcija za dodavanje (prosledjujemo je u Pocetna)
+  const addToCart = (product) => {
+    // Provera da li slika već postoji u korpi (pošto su unikat)
+    const exists = cartItems.find((item) => item.id === product.id);
+    if (exists) {
+      alert("Ova slika je već u vašoj korpi!");
+    } else {
+      setCartItems([...cartItems, product]);
+
+      //... sluze da raspakuju niz, da njih nema kreirao bi se niz kome je 1. element stari niz a 2. element proizvod
+      //const cartItems = ['a', 'b'];
+      //const product = 'c';
+      //const newCart = [...cartItems, product];
+      // newCart === ['a', 'b', 'c']
+
+
+      // alert("Slika je dodata u korpu!");
+    }
+  };
+
+  // Funkcija za brisanje (prosledjujemo je u Korpa)
+  const removeFromCart = (id) => {
+    setCartItems(cartItems.filter((item) => item.id !== id));
+  };
+
+  const [orderOpen,setOrderOpen]=useState(false);
+
   return (
     
     <BrowserRouter>
@@ -65,6 +97,7 @@ function App() {
       onRegister={() => setRegisterOpen(true)} //u Navbar.jsx klikne se button sa onClick={onRegister} => otvara se RegisterModal koji je nize opisan
       onLogout={handleLogout} //umesto da kao kod login-a i register-a (submit)hander-i budu u modalu handleLogout je u App.js, a "poziv" komponente <LogoutModal> nije u App.js kao sto su <LoginModal> i <RegisterModal> vec je na dnu Navbar.jsx
       //^App.js komunicira sa Navbar.jsx u oba slucajeva samo su elementi za komunikaciju (Modali i handleri) na razlicitim pozicijama 
+      cartCount={cartItems.length}
       />
       
 
@@ -72,7 +105,21 @@ function App() {
         <Routes>
           <Route path='/' element={<Pocetna 
                                     onRegister={()=>setRegisterOpen(true)}
-                                    isAuth={isAuth}/>} />
+                                    isAuth={isAuth} 
+                                    addToCart={addToCart}
+                                    cartItems={cartItems}
+                                  />}
+          />
+          
+          <Route path="/korpa/" element={<Korpa
+                                         cartItems={cartItems} 
+                                         removeFromCart={removeFromCart}
+                                         onPlaceOrder={()=>setOrderOpen(true)}
+                                         onRegister={()=>setRegisterOpen(true)}
+                                         isAuth={isAuth}
+                                        />} 
+          />
+
           <Route path='/galerija/' element={<Galerija/>} />
           <Route path='/o-nama/' element={<O_nama/>} />
         </Routes>
@@ -95,6 +142,13 @@ function App() {
           setLoginOpen(true);
         }}
       />
+
+      <PlaceOrderModal
+        show={orderOpen}
+        onClose={()=>setOrderOpen(false)}
+      />
+
+
 
     </BrowserRouter>
   );

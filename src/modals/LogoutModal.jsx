@@ -1,6 +1,6 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
-import "./LoginRegisterModals.css"; 
+import "./Modals.css"; 
 
 const LogoutModal = ({ show,onClose, onConfirm }) => {
   

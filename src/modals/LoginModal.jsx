@@ -1,8 +1,8 @@
 import { FaTimes, FaEnvelope, FaLock, FaEye } from "react-icons/fa";
-import "./LoginRegisterModals.css";
+import "./Modals.css";
 import { useState } from "react";
 import api from "../api/Api";
-import LoginRegisterTextInput from "../components/LoginRegisterTextInput";
+import TextInput from "../components/TextInput";
 //DODAJ VALIDACIJU ZA FORME (DA PASSWORD MORA IMATI 6 KARAKTERA, DA JE KORISNIK MOZDA POKUSAO DA SE REGISTRUJE SA MEJLOM KOJI VEC IMA NALOG I DA MU TADA IZADJE PORUKA: KORISNIK SA OVIM MEJLOM JE VEC REGISTROVAN, AKO NE MOZETE DA SE PRIJAVITE PROVERITE DA LI STE SE VERIFIKOVALI MEJL..., DA AKO NEKO HOCE DA SE PRIJAVI SA MEJLOM KOJI NIJE VERIFIKOVAN DA GA VERIFIKUJE PRVO)
 const LoginModal = ({ show, onClose, onSwitch }) => {
   
@@ -109,7 +109,7 @@ const LoginModal = ({ show, onClose, onSwitch }) => {
           
           {
             textInputs.map((input)=>(
-              <LoginRegisterTextInput
+              <TextInput
                 id={input.id}
                 type={input.type}
                 placeholder={input.placeholder}

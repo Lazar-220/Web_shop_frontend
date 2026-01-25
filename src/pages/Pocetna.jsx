@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Pocetna.css';
 import { Link } from 'react-router-dom';
 import { GiDiamonds } from "react-icons/gi";// Ikona dijamanta/zvezdice
@@ -12,13 +12,22 @@ import { BiTimeFive } from "react-icons/bi";
 import { TbRotateClockwise2 } from "react-icons/tb";
 import { LuShieldCheck } from "react-icons/lu";
 import { FiHeart } from "react-icons/fi";
-import FaqItem from '../components/FaqItem';
 
+import FaqItem from '../components/FaqItem';
 import '../components/FaqItem.css';
 
+import PaintingCard from '../components/PaintingCard';
+import '../components/PaintingCard.css';
 
 
-const Pocetna = ({onRegister,isAuth}) => {
+
+import MemberBanner from '../components/MemberBanner';
+import api from '../api/Api';
+
+
+
+
+const Pocetna = ({onRegister,isAuth,addToCart, cartItems}) => {
 
   const features = [
     {
@@ -101,6 +110,52 @@ const Pocetna = ({onRegister,isAuth}) => {
     },
   ];
 
+  
+  const [latestPaintings,setLatestPaintings] = useState([]);
+
+  const [loading,setLoading]=useState(false);
+  const [error,setError]=useState(null);
+  // const [info,setInfo]=useState("");
+
+  useEffect(()=>{
+    const vratiNoveSlike= async ()=>{
+      try {
+        setLoading(true);
+        const response = await api.get('/slike-najnovije');
+        
+        // Transformiši podatke iz baze u format koji komponenta očekuje
+        const paintings = response.data.map(slika => ({
+          id: slika.id,
+          galerija_id: slika.galerija_id,
+          naziv: slika.naziv,
+          dimenzije: `${slika.sirina_cm} x ${slika.visina_cm} cm`,
+          tehnike: slika.tehnike.map((t) => t.naziv).join(', '), // Tehnika kao string
+          cena: `${slika.cena} RSD`,
+          dostupna: slika.dostupna,
+          fotografija: `http://localhost:8000/storage/${slika.putanja_fotografije}` // Laravel storage URL
+        }));
+        
+        setLatestPaintings(paintings);
+
+      } catch (err) {
+        console.error('Greška pri učitavanju slika:', err);
+        setError('Nije moguće učitati slike');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    vratiNoveSlike();
+
+    //mozes dodati event listener-e tkd. svaki put kad slikar/admin doda sliku da se azurira pocetna strana 
+
+    // window.addEventListener('azuriraj_slike',vratiNoveSlike);
+
+    // return ()=>window.removeEventListener('azuriraj_slike',vratiNoveSlike);
+
+    //na mesto poziva: window.dispatchEvent(new Event('azuriraj_slike'));
+  },[]);
+
   return (
 
     <>
@@ -147,57 +202,73 @@ const Pocetna = ({onRegister,isAuth}) => {
         </div>
       </div>
     </div>
+
+
+    {/* LATEST PAINTINGS) SEKCIJA */}
+    <div className="latest-paintings-section py-5">
+      <div className="container">
+        {/* Header Sekcije */}
+        <div className="text-center mb-5">
+            <div className="d-flex align-items-center justify-content-center gap-2 mb-2">
+                <span className="text-custom-gold">✦</span>
+                <span className="sub-title text-uppercase">New Arrivals</span>
+            </div>
+            <h2 className="section-title display-5 mb-3">Latest Paintings</h2>
+            <p className="text-muted mx-auto" style={{maxWidth: '600px'}}>
+                Explore our most recent additions to the collection. Each painting is an original work, created with passion and attention to detail.
+            </p>
+        </div>
+        {/* DODAJ OPCIJU DA SE OBRISE IZ KORPE SA POCETNE */}
+        {/* Grid Kartica */}
+        <div className="row g-4 justify-content-center">
+            {loading ? (
+              <div className="text-center">Učitavanje...</div>
+            ) : error ? (
+              <div className="text-center text-danger">Server nije dostupan. Molimo proverite internet konekciju.</div>
+            ) : latestPaintings.length === 0 ? (
+              <div className="text-center">Nema dostupnih slika</div>
+            ) : (
+            latestPaintings.map((painting) => (
+                <div key={painting.id} className="col-md-6 col-lg-4">
+                    <PaintingCard
+                        id={painting.id}
+                        galerija_id={painting.galerija_id}
+                        naziv={painting.naziv}
+                        dimenzije= {painting.dimenzije}
+                        tehnike={painting.tehnike}
+                        cena={painting.cena}
+                        dostupna={painting.dostupna}
+                        fotografija={painting.fotografija}
+                        
+                        onAddToCart={(painting)=>addToCart(painting)} //moglo je i bez parametara tj. samo ()=>addToCart(painting) i onda bi poziv bio onAddToCart()
+                        isInCart={cartItems && cartItems.some((item) => item.id === painting.id)}   //some vraca true/false, dok find vraca element ili null?
+                        //^proverimo da li je već u korpi da bi dugme bilo sivo odmah pri učitavanju
+                    />
+                    
+                </div>
+            ))
+            )
+            }
+        </div>
+
+        {/* Dugme ispod grida */}
+        <div className="text-center mt-5">
+            <Link to="/galerija/" className="btn-gold-filled shadow-sm">
+                View All Paintings
+            </Link>
+        </div>
+
+      </div>
+    </div>
+    {/* --- KRAJ NOVE SEKCIJE --- */}
+
     {/* member-banner */}
     <div className="member-banner py-5">
-        <div className="container-fluid">
-          <div className="row align-items-center justify-content-between">
-            
-            {/* Leva strana: Tekst */}
-            <div className="col-lg-8 col-md-7 mb-4 mb-md-0 text-white ps-4">
-              {/* Subtitle sa ikonom */}
-              <div className="d-flex align-items-center gap-2 mb-2 text-custom-gold">
-                <div className="icon-circle">
-                   <FiGift size={20} />
-                </div>
-                <span className="fw-semibold">Ekskluzivna pogodnost za članove</span>
-              </div>
-              
-              <h2 className="pridruzite-se font-serif display-5 mb-3">Pridružite se našoj umetničkoj zajednici</h2>
-              <p className="postanite-clan opacity-75 ">
-                Postanite član i uživajte u popustu od 10% na sve kupovine, uz praktičnu mogućnost praćenja istorije vaših prethodnih porudžbina. Vaše putovanje u svet umetnosti počinje ovde.
-              </p>
-            </div>
-
-            {/* Desna strana: Krug i Dugme */}
-            <div className="col-lg-4 col-md-5 d-flex justify-content-center justify-content-md-end"> {/* DO PRELAMANJA EKRANA OD MANJEG KA SREDNJEM CE VAZITI justify-content-center PA ONDA NA VECIM OD TOGA justify-content-md-end. [justify-content-center ce se primenjivati za male ekrane (sm), justify-content-md-end ce se primenjivati za srednje (md) i vece (lg) ekrane] */}
-              <div className='d-flex flex-column align-items-center gap-4 me-md-3'>
-                {/* Žuti krug */}
-                <div className="discount-circle d-flex flex-column align-items-center justify-content-center">
-                  <span className="procenat">%</span>
-                  <span className="procenat-popusta">10</span>
-                  <span className="off">off</span>
-                </div>
-
-                {isAuth ? (
-                  <div className=''>
-                    <p className="text-white fw-semibold no-wrap">
-                      Hvala što ste član naše umetničke zajednice!
-                    </p>
-                  </div>
-                ) : (
-                  <button
-                    className="btn-outline-white px-4 py-3 rounded-3"
-                    onClick={onRegister}
-                  >
-                    Registrujte se
-                  </button>
-                )}
-              </div>
-              
-            </div>
-
-          </div>
-        </div>
+        {/* <div className="container-fluid"> */}
+          <MemberBanner
+          isAuth={isAuth}
+          onRegister={onRegister}/>
+        {/* </div> */}
     </div>
 
     {/* SHOP WITH CONFIDENCE */}
