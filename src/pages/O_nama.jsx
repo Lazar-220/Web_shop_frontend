@@ -3,11 +3,11 @@ import './O_nama.css';
 import { PiSparkleFill } from 'react-icons/pi';
 
 const ONama = () => {
-  // Ovaj deo rešava tvoj problem sa belom pozadinom oko footera
+  // Ovaj deo resava problem sa belom pozadinom oko footera
   useEffect(() => {
     document.body.style.backgroundColor = "#fcf8f5";
     return () => {
-      document.body.style.backgroundColor = "white"; // Vraća na belo kad odeš sa stranice
+      document.body.style.backgroundColor = "white"; // Vraca na belo kad odes sa stranice
     };
   }, []);
 
