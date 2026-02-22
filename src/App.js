@@ -122,7 +122,12 @@ function App() {
                                         />} 
           />
 
-          <Route path='/galerija/' element={<Galerija/>} />
+          <Route path='/galerija/' element={<Galerija
+                                            onAddToCart={addToCart}
+                                            onRemoveFromCart={removeFromCart}
+                                            cartItems={cartItems}
+                                            />} 
+          />
           <Route path='/o-nama/' element={<O_nama/>} />
           <Route path='/kontakt/' element={<Kontakt/>} />
         </Routes>
