@@ -51,7 +51,7 @@ useEffect(() => {
             <ul className="list-unstyled contact-info">  {/* list-unstyled uklanja bullets */}
               <li>
                 <FaMapMarkerAlt className="footer-icon" />
-                <span>Kej srpskih sestara 1, Niš</span>
+                <span>Kej Kola Srpskih Sestara 1, Niš</span>
               </li>
               <li>
                 <MdMailOutline className="footer-icon" style={{height:'2rem'}}/>

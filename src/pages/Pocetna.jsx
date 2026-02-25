@@ -147,6 +147,12 @@ const Pocetna = ({onRegister,isAuth,addToCart,removeFromCart, cartItems}) => {
 
     vratiNoveSlike();
 
+    window.scrollTo({
+
+      top: 0,
+      behavior: "smooth"
+    });
+
     //mozes dodati event listener-e tkd. svaki put kad slikar/admin doda sliku da se azurira pocetna strana 
 
     // window.addEventListener('azuriraj_slike',vratiNoveSlike);
