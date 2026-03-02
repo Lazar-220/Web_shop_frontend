@@ -13,29 +13,29 @@ const Footer = () => {
     const godina = new Date().getFullYear();
 
 // fade-up animacija za prvi scroll
-    const footerRef = useRef(null);
+    // const footerRef = useRef(null);
 
-useEffect(() => {
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('fade-up');
-        observer.unobserve(entry.target); // animira se samo jednom
-      }
-    },
-    { threshold: 0.4 }
-    );
+// useEffect(() => {
+//   const observer = new IntersectionObserver(
+//     ([entry]) => {
+//       if (entry.isIntersecting) {
+//         entry.target.classList.add('fade-up');
+//         observer.unobserve(entry.target); // animira se samo jednom
+//       }
+//     },
+//     { threshold: 0.4 }
+//     );
 
-    if (footerRef.current) {
-        observer.observe(footerRef.current);
-    }
+//     if (footerRef.current) {
+//         observer.observe(footerRef.current);
+//     }
 
-    return () => observer.disconnect();
-    }, []);
+//     return () => observer.disconnect();
+//     }, []);
     //
 
   return (
-    <footer ref={footerRef} className="footer-section">
+    <footer className="footer-section">  {/*ref={footerRef}  */}
       <div className="container py-5">
         <div className="row gy-5 justify-content-lg-between">  {/* row -> flex+grid, gy-vertikalni gap, justify-content-lg-between (razvlaci kolone na velikim ekranima)*/}
           
