@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebookF, FaInstagram, FaTiktok, FaMapMarkerAlt, FaPhoneAlt, FaBuilding, FaInfoCircle, FaChevronUp } from 'react-icons/fa';
-import { MdMailOutline } from "react-icons/md";
 import './Footer.css';
 
 import { HashLink } from 'react-router-hash-link';
@@ -51,11 +50,11 @@ const Footer = () => {
             <ul className="list-unstyled contact-info">  {/* list-unstyled uklanja bullets */}
               <li>
                 <FaMapMarkerAlt className="footer-icon" />
-                <span>Kej Kola Srpskih Sestara 1, Niš</span>
+                <span>Kej srpskih sestara, Niš</span>
               </li>
               <li>
-                <MdMailOutline className="footer-icon" style={{height:'2rem'}}/>
-                <span>pravi.izbor@danyArt.rs</span>
+                <FaInfoCircle className="footer-icon" />
+                <span>PIB 111122222</span>
               </li>
               <li>
                 <FaPhoneAlt className="footer-icon" />
@@ -100,6 +99,7 @@ const Footer = () => {
               <li><Link to="/uslovi/">Uslovi korišćenja</Link></li>
               <li><Link to="/privatnost/">Politika privatnosti</Link></li>
               <li><Link to="/informacije/">Česta pitanja</Link></li>
+              
             </ul>
 
             <HashLink smooth to="#top" className="scroll-to-top-simple">

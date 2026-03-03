@@ -14,15 +14,22 @@ import O_nama from './pages/O_nama.jsx';
 import api from './api/Api.js';
 import Korpa from './pages/Korpa.jsx';
 import PlaceOrderModal from './modals/PlaceOrderModal.jsx';
+import CestaPitanja from './pages/CestaPitanja.jsx';
 import Kontakt from './pages/Kontakt.jsx';
+
 import PasswordResetModal from './modals/PasswordResetModal.jsx';
 import AnalizaPoslovanja from './privileged-pages/AnalizaPoslovanja.jsx';
 
 
 
 
+import PolitikaPrivatnosti from './pages/PolitikaPrivatnosti';
+import UsloviKoriscenja from './pages/UsloviKoriscenja';
+
+
 
 function App() {
+
 
   const [cartItems, setCartItems] = useState([]);
 
@@ -52,6 +59,8 @@ function App() {
       window.history.replaceState({}, '', '/');
     }
   }, []); 
+
+
 
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen,setRegisterOpen]=useState(false);
@@ -195,8 +204,6 @@ function App() {
           />
           )}
           
-
-
           <Route path='/galerija/' element={<Galerija
                                             onAddToCart={addToCart}
                                             onRemoveFromCart={removeFromCart}
@@ -209,9 +216,17 @@ function App() {
 
           <Route path='/kontakt/' element={<Kontakt/>} />
 
+          <Route path='/informacije/' element={<CestaPitanja />} />
+          <Route path='/kontakt/' element={<Kontakt/>} />
+          <Route path='/privatnost/' element={<PolitikaPrivatnosti />} />
+          <Route path='/uslovi/' element={<UsloviKoriscenja />} />
+
           
           <Route path="*" element={isPrivilegedUser ? <Navigate to="/analiza-poslovanja/" /> : <Navigate to="/" />} /> {/* path="*" uhvati sve URL-ove koji nisu matchovali nijednu rutu iznad" */}
+
+
         </Routes>
+        
         <Footer />
       </div>
 
@@ -238,13 +253,6 @@ function App() {
         isAuth={isAuth}
         cartItems={cartItems}
         setCartItems={setCartItems}
-      />
-
-      <PasswordResetModal
-        show={resetPasswordOpen}
-        onClose={()=>setResetPasswordOpen(false)}
-        token={tokenResetPass}
-        email={emailResetPass}
       />
 
 
