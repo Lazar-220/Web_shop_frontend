@@ -14,38 +14,13 @@ import O_nama from './pages/O_nama.jsx';
 import api from './api/Api.js';
 import Korpa from './pages/Korpa.jsx';
 import PlaceOrderModal from './modals/PlaceOrderModal.jsx';
+import CestaPitanja from './pages/CestaPitanja.jsx';
 import Kontakt from './pages/Kontakt.jsx';
-import PasswordResetModal from './modals/PasswordResetModal.jsx';
-
+import PolitikaPrivatnosti from './pages/PolitikaPrivatnosti';
+import UsloviKoriscenja from './pages/UsloviKoriscenja';
 
 
 function App() {
-
-  const [resetPasswordOpen,setResetPasswordOpen]=useState(false);
-
-  const [tokenResetPass,setTokenResetPass]=useState("");
-  const [emailResetPass,setEmailResetPass]=useState("");
-
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);   // window.location.search vraca ?verified=true iz URL-a
-    
-    if (params.get('verified') === 'true') {
-
-      alert('Email uspešno verifikovan! Možete se prijaviti.');
-      
-      window.history.replaceState({}, '', '/'); // ukloni ?verified=true iz URL-a nakon sto se poruka prikaze (zameni sa /), srednji param uvek '' a prvi je dobar da se sacuva nesto iz url-a 
-    }
-
-    if(params.get('reset')==='true'){
-
-      setResetPasswordOpen(true);
-      setTokenResetPass(params.get('token'));
-      setEmailResetPass(params.get('email'));
-
-      window.history.replaceState({}, '', '/');
-    }
-  }, []); 
 
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen,setRegisterOpen]=useState(false);
@@ -150,15 +125,15 @@ function App() {
                                         />} 
           />
 
-          <Route path='/galerija/' element={<Galerija
-                                            onAddToCart={addToCart}
-                                            onRemoveFromCart={removeFromCart}
-                                            cartItems={cartItems}
-                                            />} 
-          />
+          <Route path='/galerija/' element={<Galerija/>} />
           <Route path='/o-nama/' element={<O_nama/>} />
+          <Route path='/informacije/' element={<CestaPitanja />} />
           <Route path='/kontakt/' element={<Kontakt/>} />
+          <Route path='/privatnost/' element={<PolitikaPrivatnosti />} />
+          <Route path='/uslovi/' element={<UsloviKoriscenja />} />
+          
         </Routes>
+        
         <Footer />
       </div>
 
@@ -185,13 +160,6 @@ function App() {
         isAuth={isAuth}
         cartItems={cartItems}
         setCartItems={setCartItems}
-      />
-
-      <PasswordResetModal
-        show={resetPasswordOpen}
-        onClose={()=>setResetPasswordOpen(false)}
-        token={tokenResetPass}
-        email={emailResetPass}
       />
 
 
